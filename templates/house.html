@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animated House Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .floating-houses {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .house-icon {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.2;
+      animation: float 20s infinite linear;
+    }
+
+    .house-icon:nth-child(1) { left: 5%; top: 90%; animation-delay: 0s; }
+    .house-icon:nth-child(2) { left: 20%; top: 95%; animation-delay: 2s; }
+    .house-icon:nth-child(3) { left: 40%; top: 92%; animation-delay: 4s; }
+    .house-icon:nth-child(4) { left: 60%; top: 97%; animation-delay: 6s; }
+    .house-icon:nth-child(5) { left: 80%; top: 94%; animation-delay: 8s; }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.2; }
+      50% { transform: translateY(-50px) scale(1.1); opacity: 0.4; }
+      100% { transform: translateY(0) scale(1); opacity: 0.2; }
+    }
+
+    .form-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      z-index: 1;
+      width: 90%;
+      max-width: 500px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2563eb;
+      font-size: 2rem;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: #1e293b;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      transition: 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 30px;
+      padding: 14px;
+      border: none;
+      background: linear-gradient(to right, #4f46e5, #3b82f6);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-houses">
+    <div class="house-icon">🏠</div>
+    <div class="house-icon">🏡</div>
+    <div class="house-icon">🏘️</div>
+    <div class="house-icon">🏚️</div>
+    <div class="house-icon">🏠</div>
+  </div>
+
+  <div class="form-card">
+    <h1>🏡 Predict House Price</h1>
+    <form method="post">
+      <label for="sqft">📐 Area in sqft</label>
+      <input type="number" name="sqft" id="sqft" step="any" placeholder="e.g. 1200" required>
+
+      <label for="bedroom">🛏️ Bedrooms</label>
+      <input type="number" name="bedroom" id="bedroom" step="any" placeholder="e.g. 3" required>
+
+      <label for="age">🏗️ House Age (Years)</label>
+      <input type="number" name="age" id="age" step="any" placeholder="e.g. 10" required>
+
+      <button type="submit">🔍 Predict Now</button>
+    </form>
+  </div>
+</body>
+</html>
