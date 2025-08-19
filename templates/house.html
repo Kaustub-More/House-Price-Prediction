@@ -3,144 +3,365 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Animated House Predictor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>House Price Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-      overflow: hidden;
-      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      overflow-x: hidden;
     }
-
-    .floating-houses {
+    /* Floating background elements */
+    .bg-elements {
       position: absolute;
       width: 100%;
       height: 100%;
-      z-index: 0;
       overflow: hidden;
+      z-index: 0;
     }
-
-    .house-icon {
+    .floating-shape {
       position: absolute;
-      font-size: 2rem;
-      opacity: 0.2;
-      animation: float 20s infinite linear;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 8s infinite ease-in-out;
     }
-
-    .house-icon:nth-child(1) { left: 5%; top: 90%; animation-delay: 0s; }
-    .house-icon:nth-child(2) { left: 20%; top: 95%; animation-delay: 2s; }
-    .house-icon:nth-child(3) { left: 40%; top: 92%; animation-delay: 4s; }
-    .house-icon:nth-child(4) { left: 60%; top: 97%; animation-delay: 6s; }
-    .house-icon:nth-child(5) { left: 80%; top: 94%; animation-delay: 8s; }
-
+    .floating-shape:nth-child(1) {
+      width: 120px; height: 120px;
+      top: 15%; left: 10%;
+      animation-delay: 0s;
+    }
+    .floating-shape:nth-child(2) {
+      width: 80px; height: 80px;
+      top: 60%; right: 15%;
+      animation-delay: 3s;
+    }
+    .floating-shape:nth-child(3) {
+      width: 100px; height: 100px;
+      bottom: 20%; left: 15%;
+      animation-delay: 6s;
+    }
+    .house-icons {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.15;
+      animation: drift 15s infinite linear;
+    }
+    .house-icons:nth-child(4) { top: 20%; left: 70%; animation-delay: 0s; }
+    .house-icons:nth-child(5) { top: 70%; left: 80%; animation-delay: 5s; }
+    .house-icons:nth-child(6) { top: 40%; left: 5%; animation-delay: 10s; }
     @keyframes float {
-      0% { transform: translateY(0) scale(1); opacity: 0.2; }
-      50% { transform: translateY(-50px) scale(1.1); opacity: 0.4; }
-      100% { transform: translateY(0) scale(1); opacity: 0.2; }
+      0%, 100% { transform: translateY(0px) scale(1); opacity: 0.1; }
+      50% { transform: translateY(-30px) scale(1.1); opacity: 0.2; }
     }
-
-    .form-card {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-      z-index: 1;
+    @keyframes drift {
+      0% { transform: translateX(0px) translateY(0px); }
+      25% { transform: translateX(20px) translateY(-15px); }
+      50% { transform: translateX(-10px) translateY(-30px); }
+      75% { transform: translateX(15px) translateY(-10px); }
+      100% { transform: translateX(0px) translateY(0px); }
+    }
+    .form-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 50px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
       width: 90%;
       max-width: 500px;
-      animation: fadeIn 1s ease forwards;
+      z-index: 1;
+      animation: slideUp 1s ease-out;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 4s infinite;
     }
-
-    h1 {
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .header {
       text-align: center;
-      margin-bottom: 30px;
-      color: #2563eb;
-      font-size: 2rem;
+      margin-bottom: 35px;
     }
-
+    .smart-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .subtitle {
+      color: #64748b;
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+    .form-group {
+      margin-bottom: 25px;
+    }
     label {
       font-weight: 600;
-      display: block;
-      margin-top: 20px;
-      margin-bottom: 5px;
-      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 1rem;
     }
-
+    .input-container {
+      position: relative;
+    }
     input[type="number"] {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #d1d5db;
-      transition: 0.3s ease;
+      padding: 15px 20px;
+      border-radius: 15px;
+      border: 2px solid #e5e7eb;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+      box-sizing: border-box;
     }
-
     input[type="number"]:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
       outline: none;
+      background: white;
+      transform: translateY(-2px);
     }
-
-    button {
+    .predict-btn {
       width: 100%;
       margin-top: 30px;
-      padding: 14px;
+      padding: 18px;
       border: none;
-      background: linear-gradient(to right, #4f46e5, #3b82f6);
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
       font-weight: 700;
       font-size: 1.1rem;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+    .predict-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
     }
-
-    footer {
-      margin-top: 20px;
-      text-align: center;
+    .predict-btn:active {
+      transform: translateY(-1px);
+    }
+    .features-list {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(102, 126, 234, 0.05);
+      border-radius: 15px;
+      border-left: 4px solid #667eea;
+    }
+    .features-list h3 {
+      color: #374151;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #64748b;
       font-size: 0.9rem;
-      color: #334155;
+      margin-bottom: 5px;
+    }
+    .loading-state {
+      display: none;
+    }
+    .btn-loading .predict-text {
+      display: none;
+    }
+    .btn-loading .loading-state {
+      display: flex;
+    }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 30px 25px;
+        margin: 20px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      input[type="number"] {
+        padding: 12px 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="floating-houses">
-    <div class="house-icon">🏠</div>
-    <div class="house-icon">🏡</div>
-    <div class="house-icon">🏘️</div>
-    <div class="house-icon">🏚️</div>
-    <div class="house-icon">🏠</div>
+  <div class="bg-elements">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="house-icons">🏠</div>
+    <div class="house-icons">🏡</div>
+    <div class="house-icons">🏘️</div>
   </div>
-
-  <div class="form-card">
-    <h1>🏡 Predict House Price</h1>
-    <form method="post">
-      <label for="sqft">📐 Area in sqft</label>
-      <input type="number" name="sqft" id="sqft" step="any" placeholder="e.g. 1200" required>
-
-      <label for="bedroom">🛏️ Bedrooms</label>
-      <input type="number" name="bedroom" id="bedroom" step="any" placeholder="e.g. 3" required>
-
-      <label for="age">🏗️ House Age (Years)</label>
-      <input type="number" name="age" id="age" step="any" placeholder="e.g. 10" required>
-
-      <button type="submit">🔍 Predict Now</button>
+  <div class="form-container">
+    <div class="header">
+      <div class="smart-badge">
+        <span>⚡</span>
+        <span>SMART CALCULATOR</span>
+      </div>
+      <h1>Property Price Predictor</h1>
+      <p class="subtitle">Get instant property value estimates</p>
+    </div>
+    <form method="post" id="predictionForm">
+      <div class="form-group">
+        <label for="sqft">
+          <span>📐</span>
+          <span>Property Area (Square Feet)</span>
+        </label>
+        <div class="input-container">
+          <input type="number" name="sqft" id="sqft" step="any" placeholder="e.g. 1200" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bedroom">
+          <span>🛏️</span>
+          <span>Number of Bedrooms</span>
+        </label>
+        <div class="input-container">
+          <input type="number" name="bedroom" id="bedroom" step="1" min="1" max="10" placeholder="e.g. 3" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="age">
+          <span>🏗️</span>
+          <span>Property Age (Years)</span>
+        </label>
+        <div class="input-container">
+          <input type="number" name="age" id="age" step="any" min="0" placeholder="e.g. 5" required>
+        </div>
+      </div>
+      <button type="submit" class="predict-btn" id="predictBtn">
+        <span class="predict-text">
+          <span>💰</span>
+          <span>Calculate Property Value</span>
+        </span>
+        <span class="loading-state">
+          <div class="spinner"></div>
+          <span>Calculating...</span>
+        </span>
+      </button>
     </form>
+    <div class="features-list">
+      <h3>🎯 What makes our estimates reliable:</h3>
+      <div class="feature-item">
+        <span>✅</span>
+        <span>Smart calculation algorithms</span>
+      </div>
+      <div class="feature-item">
+        <span>✅</span>
+        <span>Multi-dimensional analysis</span>
+      </div>
+      <div class="feature-item">
+        <span>✅</span>
+        <span>Real-time value processing</span>
+      </div>
+    </div>
   </div>
+  <script>
+    // Form submission with loading animation
+    document.getElementById('predictionForm').addEventListener('submit', function(e) {
+      const btn = document.getElementById('predictBtn');
+      btn.classList.add('btn-loading');
+      // If you want to add a slight delay for better UX (optional)
+      // setTimeout(() => {
+      //   this.submit();
+      // }, 1500);
+    });
+    // Input validation and enhancement
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('input', function() {
+        // Add custom validation or formatting here if needed
+        if (this.value < 0) {
+          this.value = 0;
+        }
+      });
+      // Add focus animation
+      input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'scale(1.02)';
+      });
+      input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'scale(1)';
+      });
+    });
+    // Add realistic placeholder animations
+    const placeholders = [
+      { element: 'sqft', values: ['1200', '1500', '2000', '850', '1800'] },
+      { element: 'bedroom', values: ['3', '2', '4', '1', '5'] },
+      { element: 'age', values: ['5', '10', '2', '15', '8'] }
+    ];
+    placeholders.forEach(item => {
+      const input = document.getElementById(item.element);
+      let index = 0;
+      setInterval(() => {
+        if (!input.value && document.activeElement !== input) {
+          input.placeholder = `e.g. ${item.values[index]}`;
+          index = (index + 1) % item.values.length;
+        }
+      }, 3000);
+    });
+  </script>
 </body>
 </html>
