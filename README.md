@@ -75,3 +75,10 @@ Understanding of data preprocessing, feature selection, and regression models.
 Building and deploying an ML-powered web application.
 
 Hands-on experience with production-ready workflows in Data Science.
+
+
+🌐 [Live Demo](https://kaustubmore.com)
+
+📌 Tags
+
+#MachineLearning #Python #Flask #Deployment #DataScience   #LinearRegression 
