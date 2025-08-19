@@ -77,7 +77,7 @@ Building and deploying an ML-powered web application.
 Hands-on experience with production-ready workflows in Data Science.
 
 
-🌐 [Live Demo](https://kaustubmore.com)
+🌐 [Project Live Demo](https://kaustubmore0.pythonanywhere.com/)
 
 📌 Tags
 
